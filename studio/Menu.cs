@@ -4,14 +4,12 @@ namespace Helpers
     {
         // field(s)/proper(y/ies)
         // TODO: make _menuItems dictionary for quicker remove
+        // TODO: what is PropertyChangedEventHandler? Use to connect menuItems to lastupdated?
         private List<MenuItem> _menuItems = [];
-        public DateTime? LastUpdated {
-             get {return _lastUpdated;}
-        }
-        private DateTime? _lastUpdated; // set at constructor
+        public DateTime? LastUpdated {get; private set;} // set at constructor
         // constructor(s)
         public Menu() {
-            _lastUpdated = DateTime.Now;
+            LastUpdated = DateTime.Now;
         }
         // overridden method(s)
         public override string ToString()
@@ -35,7 +33,7 @@ namespace Helpers
                 }
             }
             _menuItems.Add(menuItem);
-            _lastUpdated = DateTime.Now;
+            LastUpdated = DateTime.Now;
         }
         public void RemoveMenuItem(string description) {
             MenuItem? removeItem = null;
@@ -47,7 +45,7 @@ namespace Helpers
             }
             if (removeItem != null) {
                 _menuItems.Remove(removeItem);
-                _lastUpdated = DateTime.Now;
+                LastUpdated = DateTime.Now;
             }
         }
         public void RemoveMenuItem(MenuItem menuItem) {
