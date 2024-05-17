@@ -14,9 +14,10 @@ namespace Helpers
         // overridden method(s)
         public override string ToString()
         {
-            string nl = Environment.NewLine;
+            string nl = System.Environment.NewLine;
             System.Text.StringBuilder menuSB = new();
             foreach (MenuItem mi in _menuItems) {
+                menuSB.Append(nl);
                 menuSB.Append(mi);
             }
             // implicit conversion to string
@@ -28,7 +29,7 @@ namespace Helpers
         public void AddMenuItem(MenuItem menuItem) {
             foreach (MenuItem mi in _menuItems) {
                 if (menuItem.Equals(mi)) {
-                    Console.WriteLine($"Warning: menu already has {menuItem}");
+                    Console.WriteLine($"Warning: menu already has '{menuItem}'");
                     return;
                 }
             }

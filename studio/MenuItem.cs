@@ -3,29 +3,24 @@ namespace Helpers
     public class MenuItem
     {
         // field(s)/propert(y/ies)
-        // TODO: unique IDs for menu items (to simplify remove)
+        // TODO: unique IDs for menu items (for faster remove)
         // public static int nextIdNum = 0;
         // public readonly int menuId; // set at constructor
-        // private const TimeSpan stale = new TimeSpan(365, 6, 0, 0);
 
-        // TODO: use "date added" to determine if an item "is new"
-        //public readonly DateTime DateAdded; // set at constructor
+        private static int monthsToOld = 6;
+        private readonly DateTime DateOld; // set at constructor
         public double Price {get; set;}
         public string Description {get; set;}
         public string Category {get; set;}
-        // TODO: when does IsNew get set to false?
-        public bool IsNew {get; set;} = true;
-        // public bool IsNew
-        // {
-        //     get {}
-        //     set{}
-        // } = true;
+        public bool IsNew => System.DateTime.Compare(System.DateTime.Now, DateOld) < 0;
         // constructor(s)
-        public MenuItem(double price, string description, string category) {
+        public MenuItem(double price, string description, string category, bool testTime=false) {
             Price = price;
             Description = description;
             Category = category;
-            // DateAdded = DateTime.Now;
+            DateOld = DateTime.Now.AddMonths(monthsToOld);
+            // TODO: for testing, is there a better way?
+            if (testTime) {DateOld = DateTime.Now.AddSeconds(1);}
             // menuId = getNextIdNum();
         }
         // overridden method(s)
@@ -41,7 +36,7 @@ namespace Helpers
         }
         public override string ToString()
         {
-            return $"{Environment.NewLine}{Description} ({Category}), ${Price}";
+            return $"{Description} ({Category}), ${Price}";
         }
         // instance method(s)
         // private int getNextIdNum(){
